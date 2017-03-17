@@ -21,13 +21,13 @@ SMPEG_LIBRARY_PATH := external/smpeg2-2.0.0
 
 # Enable this if you want to support loading OGG Vorbis music via Tremor
 # The library path should be a relative path to this directory.
-SUPPORT_OGG := false
-OGG_LIBRARY_PATH := external/libogg-1.3.1
-VORBIS_LIBRARY_PATH := external/libvorbisidec-1.2.1
+SUPPORT_OGG := true
+OGG_LIBRARY_PATH := ../libogg-1.3.1
+VORBIS_LIBRARY_PATH := ../libvorbisidec-1.2.1
 
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH) $(LOCAL_PATH)/timidity 
-LOCAL_CFLAGS := -DWAV_MUSIC  -DMID_MUSIC -DUSE_TIMIDITY_MIDI
+LOCAL_CFLAGS := -DWAV_MUSIC  -DMID_MUSIC -DUSE_TIMIDITY_MIDI -DOGG_MUSIC
 
 LOCAL_SRC_FILES := $(notdir $(filter-out %/playmus.c %/playwave.c, $(wildcard $(LOCAL_PATH)/*.c)))
 
