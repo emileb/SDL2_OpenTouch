@@ -50,7 +50,12 @@ LOCAL_SRC_FILES := \
 
 LOCAL_SRC_FILES += $(subst $(LOCAL_PATH)/,,$(LOCAL_PATH)/src/main/android/SDL_android_main.c)
 
-LOCAL_CFLAGS += -g -O0 -DGL_GLEXT_PROTOTYPES
+#Enable GLES2 (defaults)
+ifeq ($(SDL_VIDEO_OPENGL_ES2),1)
+    LOCAL_CFLAGS += -DSDL_VIDEO_OPENGL_ES2=1
+endif
+
+LOCAL_CFLAGS += -DGL_GLEXT_PROTOTYPES
 LOCAL_LDLIBS := -ldl -lGLESv1_CM -lGLESv2 -llog -landroid
 
 include $(BUILD_SHARED_LIBRARY)
