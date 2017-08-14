@@ -58,7 +58,7 @@
   You forgot to define USE_MAC_MEMMGR in jconfig.h. /* deliberate syntax error */
 #endif
 
-#include <MemoryGame.h>     /* we use the MacOS memory manager */
+#include <Memory.h>     /* we use the MacOS memory manager */
 #include <Files.h>      /* we use the MacOS File stuff */
 #include <Folders.h>    /* we use the MacOS HFS stuff */
 #include <Script.h>     /* for smSystemScript */

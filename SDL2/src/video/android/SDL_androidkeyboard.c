@@ -30,6 +30,13 @@
 
 #include "../../core/android/SDL_android.h"
 
+static void (*showKeyboardBufferCallback)(int) = NULL;
+
+void SDL_SetShowKeyboardCallBack(void (*pt2Func)(int))
+{
+    showKeyboardBufferCallback = pt2Func;
+}
+
 void Android_InitKeyboard(void)
 {
     SDL_Keycode keymap[SDL_NUM_SCANCODES];
@@ -339,12 +346,14 @@ TranslateKeycode(int keycode)
 int
 Android_OnKeyDown(int keycode)
 {
+    __android_log_print(ANDROID_LOG_INFO, "SDL", "Android_OnKeyDown %d", keycode);
     return SDL_SendKeyboardKey(SDL_PRESSED, TranslateKeycode(keycode));
 }
 
 int
 Android_OnKeyUp(int keycode)
 {
+    __android_log_print(ANDROID_LOG_INFO, "SDL", "Android_OnKeyUp %d", keycode);
     return SDL_SendKeyboardKey(SDL_RELEASED, TranslateKeycode(keycode));
 }
 
@@ -363,14 +372,28 @@ Android_IsScreenKeyboardShown(_THIS, SDL_Window * window)
 void
 Android_StartTextInput(_THIS)
 {
-    SDL_VideoData *videodata = (SDL_VideoData *)_this->driverdata;
-    Android_JNI_ShowTextInput(&videodata->textRect);
+    if(showKeyboardBufferCallback != NULL)
+    {
+        showKeyboardBufferCallback(1);
+    }
+    else
+    {
+        SDL_VideoData *videodata = (SDL_VideoData *)_this->driverdata;
+        Android_JNI_ShowTextInput(&videodata->textRect);
+    }
 }
 
 void
 Android_StopTextInput(_THIS)
 {
-    Android_JNI_HideTextInput();
+    if(showKeyboardBufferCallback != NULL)
+    {
+        showKeyboardBufferCallback(0);
+    }
+    else
+    {
+        Android_JNI_HideTextInput();
+    }
 }
 
 void
