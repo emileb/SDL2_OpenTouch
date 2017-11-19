@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#include <machine/cpu-features.h>
+//#include <machine/cpu-features.h>
 
     .text
     .align
