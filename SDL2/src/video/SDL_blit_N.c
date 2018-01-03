@@ -2196,6 +2196,9 @@ BlitNtoNCopyAlpha(SDL_BlitInfo * info)
             Uint32 Pixel;
             unsigned sR, sG, sB, sA;
             DISEMBLE_RGBA(src, srcbpp, srcfmt, Pixel, sR, sG, sB, sA);
+#ifdef __ANDROID__  // EMILE. Hack, force dest alpha to be set. SOME Android devices dont display texture properly if alpha is zero
+            sA = 0xFF;
+#endif
             ASSEMBLE_RGBA(dst, dstbpp, dstfmt, sR, sG, sB, sA);
             dst += dstbpp;
             src += srcbpp;

@@ -930,6 +930,9 @@ Map1toN(SDL_PixelFormat * src, Uint8 Rmod, Uint8 Gmod, Uint8 Bmod, Uint8 Amod,
         Uint8 G = (Uint8) ((pal->colors[i].g * Gmod) / 255);
         Uint8 B = (Uint8) ((pal->colors[i].b * Bmod) / 255);
         Uint8 A = (Uint8) ((pal->colors[i].a * Amod) / 255);
+#ifdef __ANDROID__ // EMILE. Hack, force dest alpha to be set. SOME Android devices dont display texture properly if alpha is zero. PrBoom uses this
+		A = 255;
+#endif
         ASSEMBLE_RGBA(&map[i * bpp], dst->BytesPerPixel, dst, R, G, B, A);
     }
     return (map);
