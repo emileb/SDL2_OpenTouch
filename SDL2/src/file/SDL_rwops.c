@@ -473,7 +473,9 @@ SDL_RWFromFile(const char *file, const char *mode)
 #if defined(__ANDROID__)
 #ifdef HAVE_STDIO_H
     /* Try to open the file on the filesystem first */
-    if (*file == '/') {
+
+    //if (*file == '/') {
+    if (1) { // Always try relative files on the filesystem as well
         FILE *fp = fopen(file, mode);
         if (fp) {
             return SDL_RWFromFP(fp, 1);
