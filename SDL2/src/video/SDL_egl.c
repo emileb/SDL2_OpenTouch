@@ -115,7 +115,7 @@ static int SDL_EGL_HasExtension(_THIS, const char *ext)
 *******************************************************************************/
 static int doSwapBuffer = 1;
 static void (*swapBufferCallback)(void) = NULL;
-
+static int newEglCreated = 0;
 
 void SDL_SwapBufferPerformsSwap(int value)
 {
@@ -126,6 +126,19 @@ void SDL_SwapBufferPerformsSwap(int value)
 void SDL_SetSwapBufferCallBack(void (*pt2Func)(void))
 {
 	swapBufferCallback = pt2Func;
+}
+
+int SDL_NewEGLCreated()
+{
+    if( newEglCreated )
+    {
+        newEglCreated = 0;
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -440,6 +453,7 @@ SDL_EGL_ChooseConfig(_THIS)
 SDL_GLContext
 SDL_EGL_CreateContext(_THIS, EGLSurface egl_surface)
 {
+    newEglCreated = 1;
     /* max 14 values plus terminator. */
     EGLint attribs[15];
     int attr = 0;
