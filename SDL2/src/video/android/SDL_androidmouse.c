@@ -33,6 +33,7 @@
 #define ACTION_DOWN 0
 #define ACTION_UP 1
 #define ACTION_MOVE 2
+#define ACTION_MOVE_REL 3
 #define ACTION_HOVER_MOVE 7
 #define ACTION_SCROLL 8
 #define BUTTON_PRIMARY 1
@@ -67,14 +68,14 @@ void Android_OnMouse( int androidButton, int action, float x, float y) {
             } else if (androidButton == BUTTON_BACK) {
                 SDLButton = SDL_BUTTON_X2;
             }
-            SDL_SendMouseMotion(Android_Window, 0, 0, x, y);
-            SDL_SendMouseButton(Android_Window, 0, SDL_PRESSED, SDLButton);
+            //SDL_SendMouseMotion(Android_Window, 0, 0, x, y);
+            SDL_SendMouseButton(Android_Window, 0, SDL_PRESSED,  SDLButton);
             break;
 
         case ACTION_UP:
             // Android won't give us the button that originated the ACTION_DOWN event, so we'll
             // assume it's the one we stored
-            SDL_SendMouseMotion(Android_Window, 0, 0, x, y);
+            //SDL_SendMouseMotion(Android_Window, 0, 0, x, y);
             SDL_SendMouseButton(Android_Window, 0, SDL_RELEASED, SDLButton);
             break;
 
@@ -82,7 +83,9 @@ void Android_OnMouse( int androidButton, int action, float x, float y) {
         case ACTION_HOVER_MOVE:
             SDL_SendMouseMotion(Android_Window, 0, 0, x, y);
             break;
-
+        case ACTION_MOVE_REL:
+            SDL_SendMouseMotion(Android_Window, 0, 1, x, y);
+            break;
         case ACTION_SCROLL:
             SDL_SendMouseWheel(Android_Window, 0, x, y, SDL_MOUSEWHEEL_NORMAL);
             break;
