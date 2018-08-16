@@ -23,7 +23,7 @@
 #include "SDL_androidvideo.h"
 
 extern void Android_InitKeyboard(void);
-extern int Android_OnKeyDown(int keycode);
+extern int Android_OnKeyDown(int keycode, int unicode);
 extern int Android_OnKeyUp(int keycode);
 
 extern SDL_bool Android_HasScreenKeyboardSupport(_THIS);

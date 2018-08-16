@@ -282,9 +282,9 @@ JNIEXPORT void JNICALL Java_org_libsdl_app_SDLActivity_onNativeSurfaceDestroyed(
 
 /* Keydown */
 JNIEXPORT void JNICALL Java_org_libsdl_app_SDLActivity_onNativeKeyDown(
-                                    JNIEnv* env, jclass jcls, jint keycode)
+                                    JNIEnv* env, jclass jcls, jint keycode, jint unicode)
 {
-    Android_OnKeyDown(keycode);
+    Android_OnKeyDown(keycode, unicode);
 }
 
 /* Keyup */

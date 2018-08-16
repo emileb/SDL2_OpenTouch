@@ -344,9 +344,19 @@ TranslateKeycode(int keycode)
 }
 
 int
-Android_OnKeyDown(int keycode)
+Android_OnKeyDown(int keycode, int unicode)
 {
     __android_log_print(ANDROID_LOG_INFO, "SDL", "Android_OnKeyDown %d", keycode);
+
+    // Send text input all the time..
+    if( unicode > 0 && unicode < 255 )
+    {
+       char text[2];
+       text[0] = unicode;
+       text[1] = 0;
+       SDL_SendKeyboardText(text);
+    }
+
     return SDL_SendKeyboardKey(SDL_PRESSED, TranslateKeycode(keycode));
 }
 
