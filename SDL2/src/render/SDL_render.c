@@ -1970,4 +1970,12 @@ int SDL_GL_UnbindTexture(SDL_Texture *texture)
     return SDL_Unsupported();
 }
 
+
+int SDL_ForceupdateViewport(SDL_Renderer * renderer)
+{
+	return renderer->UpdateViewport(renderer);
+	//return 0;
+}
+
+
 /* vi: set ts=4 sw=4 expandtab: */
