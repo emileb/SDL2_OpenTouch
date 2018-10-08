@@ -22,14 +22,16 @@
 
 /* This file contains functions for backwards compatibility with SDL 1.2 */
 
+#include "../SDL_internal.h"
+
 #include "SDL.h"
 #include "SDL_syswm.h"
 #include "SDL_compat.h"
 
+
 #include "../video/SDL_sysvideo.h"
 #include "../video/SDL_pixels_c.h"
 #include "../render/SDL_yuv_sw_c.h"
-
 
 static SDL_Window *SDL_VideoWindow = NULL;
 static SDL_Surface *SDL_WindowSurface = NULL;
