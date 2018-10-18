@@ -2879,7 +2879,7 @@ SDL_GL_ResetAttributes()
     _this->gl_config.blue_size = 8;
     _this->gl_config.alpha_size = 8;
     _this->gl_config.buffer_size = 0;
-    _this->gl_config.depth_size = 24;
+    _this->gl_config.depth_size = 16;
     _this->gl_config.stencil_size = 0;
     _this->gl_config.double_buffer = 1;
     _this->gl_config.accum_red_size = 0;
