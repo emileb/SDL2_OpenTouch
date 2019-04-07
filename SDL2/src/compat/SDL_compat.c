@@ -1758,7 +1758,7 @@ int
 SDL_EnableUNICODE(int enable)
 {
     int previous = SDL_enabled_UNICODE;
-
+#ifndef __ANDROID__
     switch (enable) {
     case 1:
         SDL_enabled_UNICODE = 1;
@@ -1769,6 +1769,7 @@ SDL_EnableUNICODE(int enable)
         SDL_StopTextInput();
         break;
     }
+#endif
     return previous;
 }
 
