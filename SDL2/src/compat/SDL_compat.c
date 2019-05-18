@@ -585,6 +585,10 @@ SDL_SetVideoMode(int width, int height, int bpp, Uint32 flags)
         return SDL_PublicSurface;
     }
 
+    // EMILE, force viewport to be the size we want, otherwise creates a full screen surface
+SDL_VideoWindow->w = SDL_VideoWindow->windowed.w;
+SDL_VideoWindow->h = SDL_VideoWindow->windowed.h;
+
     /* Create the screen surface */
     SDL_WindowSurface = SDL_GetWindowSurface(SDL_VideoWindow);
     if (!SDL_WindowSurface) {
