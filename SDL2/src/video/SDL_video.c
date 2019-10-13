@@ -553,6 +553,10 @@ SDL_VideoInit(const char *driver_name)
         SDL_StartTextInput();
     }
 
+#ifdef __ANDROID__ //Added by EMILE, enable this to allow HW keyboard to always works, don't SDL_StartTextInput otherwise soft keyboards shows
+    SDL_EventState(SDL_TEXTINPUT, SDL_ENABLE);
+    SDL_EventState(SDL_TEXTEDITING, SDL_ENABLE);
+#endif
     /* We're ready to go! */
     return 0;
 }
@@ -3567,9 +3571,11 @@ SDL_StopTextInput(void)
         _this->HideScreenKeyboard(_this, window);
     }
 
+#ifndef __ANDROID__ //EMILE, actually never disable this!!
     /* Finally disable text events */
     SDL_EventState(SDL_TEXTINPUT, SDL_DISABLE);
     SDL_EventState(SDL_TEXTEDITING, SDL_DISABLE);
+#endif
 }
 
 void

@@ -611,6 +611,12 @@ SDL_GetKeyboardFocus(void)
 void
 SDL_SetKeyboardFocus(SDL_Window * window)
 {
+
+// EMILE, actually dont do any of this, just keep it focused
+#ifdef __ANDROID__
+return;
+#endif
+
     SDL_Keyboard *keyboard = &SDL_keyboard;
 
     if (keyboard->focus && !window) {
