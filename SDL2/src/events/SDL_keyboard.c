@@ -611,12 +611,6 @@ SDL_GetKeyboardFocus(void)
 void
 SDL_SetKeyboardFocus(SDL_Window * window)
 {
-
-// EMILE, actually dont do any of this, just keep it focused
-#ifdef __ANDROID__
-return;
-#endif
-
     SDL_Keyboard *keyboard = &SDL_keyboard;
 
     if (keyboard->focus && !window) {
@@ -657,9 +651,11 @@ return;
 
         if (SDL_EventState(SDL_TEXTINPUT, SDL_QUERY)) {
             SDL_VideoDevice *video = SDL_GetVideoDevice();
+#ifndef __ANDROID__ // EMILE, stop randomly showing keyboard
             if (video && video->StartTextInput) {
                 video->StartTextInput(video);
             }
+#endif
         }
     }
 }
