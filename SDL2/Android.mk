@@ -58,6 +58,8 @@ endif
 LOCAL_CFLAGS += -DGL_GLEXT_PROTOTYPES
 LOCAL_LDLIBS := -ldl -lGLESv1_CM -lGLESv2 -llog -landroid
 
+LOCAL_SHARED_LIBRARIES := saffal
+
 include $(BUILD_SHARED_LIBRARY)
 
 ###########################
@@ -74,5 +76,6 @@ LOCAL_SRC_FILES += $(subst $(LOCAL_PATH)/,,$(LOCAL_PATH)/src/main/android/SDL_an
 
 LOCAL_LDLIBS := 
 LOCAL_EXPORT_LDLIBS := -Wl,--undefined=Java_org_libsdl_app_SDLActivity_nativeInit -ldl -lGLESv1_CM -lGLESv2 -llog -landroid
+
 
 include $(BUILD_STATIC_LIBRARY)
