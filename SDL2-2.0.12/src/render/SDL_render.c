@@ -3401,4 +3401,12 @@ SDL_GetBlendModeAlphaOperation(SDL_BlendMode blendMode)
     return (SDL_BlendOperation)(((Uint32)blendMode >> 16) & 0xF);
 }
 
+#ifdef OPENTOUCH_SDL_EXTRA
+int SDL_ForceupdateViewport(SDL_Renderer * renderer)
+{
+	//return renderer->UpdateViewport(renderer);
+	QueueCmdSetViewport(renderer);
+}
+#endif
+
 /* vi: set ts=4 sw=4 expandtab: */

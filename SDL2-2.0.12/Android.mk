@@ -123,7 +123,7 @@ include $(BUILD_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
 
-LOCAL_CPPFLAGS += -std=c++11
+LOCAL_CPPFLAGS += -std=c++11 -DOPENTOUCH_SDL_EXTRA
 
 LOCAL_SRC_FILES := src/hidapi/android/hid.cpp
 

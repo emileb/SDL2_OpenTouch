@@ -536,7 +536,11 @@ SDL_RWFromFile(const char *file, const char *mode)
 #if defined(__ANDROID__)
 #ifdef HAVE_STDIO_H
     /* Try to open the file on the filesystem first */
+#ifdef OPENTOUCH_SDL_EXTRA
+	if (1) { // ALWAYS try to open a real file on the filesystem
+#else
     if (*file == '/') {
+#endif
         FILE *fp = fopen(file, mode);
         if (fp) {
             return SDL_RWFromFP(fp, 1);

@@ -647,9 +647,11 @@ SDL_SetKeyboardFocus(SDL_Window * window)
             SDL_CaptureMouse(SDL_FALSE);  /* drop the capture. */
             SDL_assert(!(keyboard->focus->flags & SDL_WINDOW_MOUSE_CAPTURE));
         }
+#ifndef OPENTOUCH_SDL_EXTRA // Removed this as we don't care about keyboard focus and this is breaking gzdoom
 
         SDL_SendWindowEvent(keyboard->focus, SDL_WINDOWEVENT_FOCUS_LOST,
                             0, 0);
+#endif
 
         /* Ensures IME compositions are committed */
         if (SDL_EventState(SDL_TEXTINPUT, SDL_QUERY)) {

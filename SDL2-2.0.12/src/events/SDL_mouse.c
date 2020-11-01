@@ -812,6 +812,7 @@ SDL_SetRelativeMouseMode(SDL_bool enabled)
     mouse->scale_accum_x = 0.0f;
     mouse->scale_accum_y = 0.0f;
 
+#ifndef OPENTOUCH_SDL_EXTRA
     if (enabled && focusWindow) {
         /* Center it in the focused window to prevent clicks from going through
          * to background windows.
@@ -819,6 +820,7 @@ SDL_SetRelativeMouseMode(SDL_bool enabled)
         SDL_SetMouseFocus(focusWindow);
         SDL_WarpMouseInWindow(focusWindow, focusWindow->w/2, focusWindow->h/2);
     }
+#endif
 
     if (mouse->focus) {
         SDL_UpdateWindowGrab(mouse->focus);
