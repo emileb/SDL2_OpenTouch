@@ -36,6 +36,10 @@
 #include "SDL_loadso.h"
 #include "SDL_hints.h"
 
+#ifdef OPENTOUCH_SDL_EXTRA
+#include "SDL_beloko_extra.h"
+#endif
+
 #ifdef EGL_KHR_create_context
 /* EGL_OPENGL_ES3_BIT_KHR was added in version 13 of the extension. */
 #ifndef EGL_OPENGL_ES3_BIT_KHR
@@ -87,6 +91,38 @@
 */
 #ifndef EGL_PLATFORM_DEVICE_EXT
 #define EGL_PLATFORM_DEVICE_EXT 0x0
+#endif
+
+#ifdef OPENTOUCH_SDL_EXTRA
+
+static int doSwapBuffer = 1;
+static void (*swapBufferCallback)(void) = NULL;
+static int newEglCreated = 0;
+
+void SDL_SwapBufferPerformsSwap(int value)
+{
+	doSwapBuffer = value;
+}
+
+
+void SDL_SetSwapBufferCallBack(void (*pt2Func)(void))
+{
+	swapBufferCallback = pt2Func;
+}
+
+int SDL_NewEGLCreated()
+{
+    if( newEglCreated )
+    {
+        newEglCreated = 0;
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 #endif
 
 #ifdef SDL_VIDEO_STATIC_ANGLE
@@ -814,6 +850,9 @@ SDL_EGL_ChooseConfig(_THIS)
 SDL_GLContext
 SDL_EGL_CreateContext(_THIS, EGLSurface egl_surface)
 {
+#ifdef OPENTOUCH_SDL_EXTRA
+	newEglCreated = 1;
+#endif
     /* max 14 values plus terminator. */
     EGLint attribs[15];
     int attr = 0;
@@ -1001,6 +1040,14 @@ SDL_EGL_GetSwapInterval(_THIS)
 int
 SDL_EGL_SwapBuffers(_THIS, EGLSurface egl_surface)
 {
+#ifdef OPENTOUCH_SDL_EXTRA
+    if (swapBufferCallback)
+		swapBufferCallback();
+
+	if (!doSwapBuffer)
+		return 0;
+#endif
+
     if (!_this->egl_data->eglSwapBuffers(_this->egl_data->egl_display, egl_surface)) {
         return SDL_EGL_SetError("unable to show color buffer in an OS-native window", "eglSwapBuffers");
     }

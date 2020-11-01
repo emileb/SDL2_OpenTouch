@@ -30,6 +30,17 @@
 
 #include "../../core/android/SDL_android.h"
 
+#ifdef OPENTOUCH_SDL_EXTRA
+
+static void (*showKeyboardBufferCallback)(int) = NULL;
+
+void SDL_SetShowKeyboardCallBack(void (*pt2Func)(int))
+{
+    showKeyboardBufferCallback = pt2Func;
+}
+
+#endif
+
 void Android_InitKeyboard(void)
 {
     SDL_Keycode keymap[SDL_NUM_SCANCODES];
@@ -363,6 +374,14 @@ Android_IsScreenKeyboardShown(_THIS, SDL_Window * window)
 void
 Android_StartTextInput(_THIS)
 {
+#ifdef OPENTOUCH_SDL_EXTRA
+    if(showKeyboardBufferCallback != NULL)
+    {
+        showKeyboardBufferCallback(1);
+        return;
+    }
+#endif
+
     SDL_VideoData *videodata = (SDL_VideoData *)_this->driverdata;
     Android_JNI_ShowTextInput(&videodata->textRect);
 }
@@ -370,6 +389,14 @@ Android_StartTextInput(_THIS)
 void
 Android_StopTextInput(_THIS)
 {
+#ifdef OPENTOUCH_SDL_EXTRA
+    if(showKeyboardBufferCallback != NULL)
+    {
+        showKeyboardBufferCallback(0);
+        return;
+    }
+#endif
+
     Android_JNI_HideTextInput();
 }
 

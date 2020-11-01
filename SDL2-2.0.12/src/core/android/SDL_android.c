@@ -50,7 +50,11 @@
 #include <unistd.h>
 #include <dlfcn.h>
 
+#ifdef OPENTOUCH_SDL_EXTRA
+#define SDL_JAVA_PREFIX                                 org_libsdl_app2012
+#else
 #define SDL_JAVA_PREFIX                                 org_libsdl_app
+#endif
 #define CONCAT1(prefix, class, function)                CONCAT2(prefix, class, function)
 #define CONCAT2(prefix, class, function)                Java_ ## prefix ## _ ## class ## _ ## function
 #define SDL_JAVA_INTERFACE(function)                    CONCAT1(SDL_JAVA_PREFIX, SDLActivity, function)
@@ -502,11 +506,17 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *reserved)
         return JNI_VERSION_1_4;
     }
 
+#ifdef OPENTOUCH_SDL_EXTRA
+    register_methods(env, "org/libsdl/app2012/SDLActivity", SDLActivity_tab, SDL_arraysize(SDLActivity_tab));
+    register_methods(env, "org/libsdl/app2012/SDLInputConnection", SDLInputConnection_tab, SDL_arraysize(SDLInputConnection_tab));
+    register_methods(env, "org/libsdl/app2012/SDLAudioManager", SDLAudioManager_tab, SDL_arraysize(SDLAudioManager_tab));
+    register_methods(env, "org/libsdl/app2012/SDLControllerManager", SDLControllerManager_tab, SDL_arraysize(SDLControllerManager_tab));
+#else
     register_methods(env, "org/libsdl/app/SDLActivity", SDLActivity_tab, SDL_arraysize(SDLActivity_tab));
     register_methods(env, "org/libsdl/app/SDLInputConnection", SDLInputConnection_tab, SDL_arraysize(SDLInputConnection_tab));
     register_methods(env, "org/libsdl/app/SDLAudioManager", SDLAudioManager_tab, SDL_arraysize(SDLAudioManager_tab));
     register_methods(env, "org/libsdl/app/SDLControllerManager", SDLControllerManager_tab, SDL_arraysize(SDLControllerManager_tab));
-
+#endif
     return JNI_VERSION_1_4;
 }
 
@@ -702,6 +712,10 @@ JNIEXPORT int JNICALL SDL_JAVA_INTERFACE(nativeRunMain)(JNIEnv *env, jclass cls,
 
     /* Save JNIEnv of SDLThread */
     Android_JNI_SetEnv(env);
+
+#ifdef OPENTOUCH_SDL_EXTRA // Don't call SDL_main, we will call the start of the application manually
+	return 0;
+#endif
 
     library_file = (*env)->GetStringUTFChars(env, library, NULL);
     library_handle = dlopen(library_file, RTLD_GLOBAL);
