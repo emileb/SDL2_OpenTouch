@@ -30,6 +30,10 @@
 
 #include "../../core/android/SDL_android.h"
 
+#include <android/log.h>
+#define LOG_TAG "SDL_android"
+#define LOGI(...)  __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
+
 #define ACTION_DOWN 0
 #define ACTION_UP 1
 #define ACTION_MOVE 2
@@ -44,10 +48,62 @@
 
 static Uint8 SDLButton;
 
+static void (*showMouseCallback)(int) = NULL;
+static void (*mouseMoveCallback)(float, float) = NULL;
+
+
+void SDL_ShowMouseCallBack(void (*pt2Func)(int))
+{
+	showMouseCallback = pt2Func;
+}
+
+void SDL_MouseMoveCallBack(void (*pt2Func)(float, float))
+{
+	mouseMoveCallback = pt2Func;
+}
+
+static SDL_Cursor *CreateCursor(SDL_Surface * surface, int hot_x, int hot_y)
+{
+	SDL_Cursor *cursor = NULL;
+	cursor = SDL_calloc(1, sizeof(*cursor));
+	return cursor;
+}
+
+static void MoveCursor (struct SDL_Cursor * cursor)
+{
+ 	SDL_Mouse *mouse = SDL_GetMouse();
+ 	SDL_Window *focusWindow = SDL_GetKeyboardFocus();
+
+	LOGI("MoveCursor %d %d", mouse->x, mouse->y);
+	if(mouseMoveCallback && focusWindow)
+	{
+		//mouseMoveCallback((float)mouse->x / (float)focusWindow->w, (float)mouse->y / (float)focusWindow->h);
+		mouseMoveCallback((float)mouse->x / (float)focusWindow->w, (float)mouse->y / (float)focusWindow->h);
+	}
+}
+
+static void ShowCursor (struct SDL_Cursor * cursor)
+{
+	LOGI("ShowCursor");
+	if(showMouseCallback)
+	{
+		showMouseCallback(cursor!=NULL);
+	}
+}
+
 void
 Android_InitMouse(void)
 {
     SDLButton = 0;
+
+  	SDL_Mouse *mouse = SDL_GetMouse();
+
+	mouse->CreateCursor = CreateCursor;
+	mouse->ShowCursor = ShowCursor;
+	mouse->MoveCursor = MoveCursor;
+	//mouse->FreeCursor = RPI_FreeCursor;
+	//mouse->WarpMouse = RPI_WarpMouse;
+	//mouse->WarpMouseGlobal = RPI_WarpMouseGlobal;
 }
 
 void Android_OnMouse( int androidButton, int action, float x, float y) {

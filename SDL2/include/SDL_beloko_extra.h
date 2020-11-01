@@ -1,6 +1,8 @@
 
 extern "C"
 {
+
+
 //set if swap buffers actually does an egl swap
 void SDL_SwapBufferPerformsSwap(int value);
 
@@ -12,5 +14,9 @@ void SDL_SetShowKeyboardCallBack(void (*pt2Func)(int));
 
 // True if a new egl was created in the last time this was called
 int SDL_NewEGLCreated();
+
+void SDL_ShowMouseCallBack(void (*pt2Func)(int));
+
+void SDL_MouseMoveCallBack(void (*pt2Func)(float, float));
 
 }
