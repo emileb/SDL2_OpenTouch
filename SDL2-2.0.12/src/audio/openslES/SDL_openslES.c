@@ -562,6 +562,9 @@ openslES_CreatePCMPlayer(_THIS)
 
     /* Create the sound buffers */
     audiodata->mixbuff = (Uint8 *) SDL_malloc(NUM_BUFFERS * this->spec.size);
+#ifdef OPENTOUCH_SDL_EXTRA
+	memset(audiodata->mixbuff, 0, NUM_BUFFERS * this->spec.size);
+#endif
     if (audiodata->mixbuff == NULL) {
         LOGE("mixbuffer allocate - out of memory");
         goto failed;
