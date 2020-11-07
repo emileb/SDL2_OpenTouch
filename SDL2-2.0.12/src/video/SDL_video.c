@@ -567,7 +567,10 @@ SDL_VideoInit(const char *driver_name)
     if (!SDL_HasScreenKeyboardSupport()) {
         SDL_StartTextInput();
     }
-
+#ifdef OPENTOUCH_SDL_EXTRA //Added by EMILE, enable this to allow HW keyboard to always works, don't SDL_StartTextInput otherwise soft keyboards shows
+    SDL_EventState(SDL_TEXTINPUT, SDL_ENABLE);
+    SDL_EventState(SDL_TEXTEDITING, SDL_ENABLE);
+#endif
     /* We're ready to go! */
     return 0;
 }
@@ -3814,10 +3817,11 @@ SDL_StopTextInput(void)
     if (window && _this && _this->HideScreenKeyboard) {
         _this->HideScreenKeyboard(_this, window);
     }
-
+#ifndef OPENTOUCH_SDL_EXTRA //EMILE, actually never disable this, otherwise keyboard will stop working
     /* Finally disable text events */
     SDL_EventState(SDL_TEXTINPUT, SDL_DISABLE);
     SDL_EventState(SDL_TEXTEDITING, SDL_DISABLE);
+#endif
 }
 
 void
