@@ -648,7 +648,6 @@ SDL_SetKeyboardFocus(SDL_Window * window)
             SDL_assert(!(keyboard->focus->flags & SDL_WINDOW_MOUSE_CAPTURE));
         }
 #ifndef OPENTOUCH_SDL_EXTRA // Removed this as we don't care about keyboard focus and this is breaking gzdoom
-
         SDL_SendWindowEvent(keyboard->focus, SDL_WINDOWEVENT_FOCUS_LOST,
                             0, 0);
 #endif
@@ -665,14 +664,16 @@ SDL_SetKeyboardFocus(SDL_Window * window)
     keyboard->focus = window;
 
     if (keyboard->focus) {
+
         SDL_SendWindowEvent(keyboard->focus, SDL_WINDOWEVENT_FOCUS_GAINED,
                             0, 0);
-
         if (SDL_EventState(SDL_TEXTINPUT, SDL_QUERY)) {
             SDL_VideoDevice *video = SDL_GetVideoDevice();
+#ifndef OPENTOUCH_SDL_EXTRA // EMILE, stop randomly showing keyboard
             if (video && video->StartTextInput) {
                 video->StartTextInput(video);
             }
+#endif
         }
     }
 }
