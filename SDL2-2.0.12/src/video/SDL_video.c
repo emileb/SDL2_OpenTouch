@@ -3095,11 +3095,17 @@ SDL_GL_ResetAttributes()
     if (!_this) {
         return;
     }
-
+#ifdef OPENTOUCH_SDL_EXTRA
+    _this->gl_config.red_size = 8;
+    _this->gl_config.green_size = 8;
+    _this->gl_config.blue_size = 8;
+    _this->gl_config.alpha_size = 8;
+#else
     _this->gl_config.red_size = 3;
     _this->gl_config.green_size = 3;
     _this->gl_config.blue_size = 2;
     _this->gl_config.alpha_size = 0;
+#endif
     _this->gl_config.buffer_size = 0;
     _this->gl_config.depth_size = 16;
     _this->gl_config.stencil_size = 0;
