@@ -770,7 +770,7 @@ SetDrawState(GLES_RenderData *data, const SDL_RenderCommand *cmd)
         data->drawstate.cliprect_dirty = SDL_FALSE;
     }
 
-    if (blend != data->drawstate.blend) {
+//    if (blend != data->drawstate.blend) {// Remove the state change because the touch controls change state
         if (blend == SDL_BLENDMODE_NONE) {
             data->glDisable(GL_BLEND);
         } else {
@@ -792,7 +792,7 @@ SetDrawState(GLES_RenderData *data, const SDL_RenderCommand *cmd)
             }
         }
         data->drawstate.blend = blend;
-    }
+//    }
 
     if ((cmd->data.draw.texture != NULL) != data->drawstate.texturing) {
         if (cmd->data.draw.texture == NULL) {
