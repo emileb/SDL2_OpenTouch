@@ -2478,6 +2478,9 @@ BlitNtoNCopyAlpha(SDL_BlitInfo * info)
                 dst[1] = src[p1];
                 dst[2] = src[p2];
                 dst[3] = src[p3];
+#ifdef __ANDROID__
+                dst[3] = 0xFF;
+#endif
                 src += 4;
                 dst += 4;
             }, width);
