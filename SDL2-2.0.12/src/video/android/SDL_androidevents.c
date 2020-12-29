@@ -141,6 +141,7 @@ Android_PumpEvents_Blocking(_THIS)
             /* Android_PauseSem was signaled */
             if (videodata->isPausing == 0) {
                 SDL_SendWindowEvent(Android_Window, SDL_WINDOWEVENT_MINIMIZED, 0, 0);
+                SDL_SendWindowEvent(Android_Window, SDL_WINDOWEVENT_FOCUS_LOST, 0, 0);
                 SDL_SendAppEvent(SDL_APP_WILLENTERBACKGROUND);
                 SDL_SendAppEvent(SDL_APP_DIDENTERBACKGROUND);
             }
