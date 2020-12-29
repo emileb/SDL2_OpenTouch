@@ -812,12 +812,15 @@ SetCopyState(GLES_RenderData *data, const SDL_RenderCommand *cmd)
 {
     SDL_Texture *texture = cmd->data.draw.texture;
     SetDrawState(data, cmd);
-
+#ifndef OPENTOUCH_SDL_EXTRA
     if (texture != data->drawstate.texture) {
+#endif
         GLES_TextureData *texturedata = (GLES_TextureData *) texture->driverdata;
         data->glBindTexture(GL_TEXTURE_2D, texturedata->texture);
         data->drawstate.texture = texture;
+#ifndef OPENTOUCH_SDL_EXTRA
     }
+#endif
 }
 
 static int
