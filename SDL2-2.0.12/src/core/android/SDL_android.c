@@ -860,10 +860,12 @@ JNIEXPORT void JNICALL SDL_JAVA_INTERFACE(onNativeResize)(
 {
     SDL_LockMutex(Android_ActivityMutex);
 
+#ifndef OPENTOUCH_SDL_EXTRA // Dont do this because it invalidates the windows surface on resume
     if (Android_Window)
     {
         Android_SendResize(Android_Window);
     }
+#endif
 
     SDL_UnlockMutex(Android_ActivityMutex);
 }
