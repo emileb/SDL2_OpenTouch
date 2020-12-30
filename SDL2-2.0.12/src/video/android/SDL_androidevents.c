@@ -130,10 +130,12 @@ Android_PumpEvents_Blocking(_THIS)
                 SDL_UnlockMutex(Android_ActivityMutex);
             }
 
+#ifndef OPENTOUCH_SDL_EXTRA
             /* Make sure SW Keyboard is restored when an app becomes foreground */
             if (SDL_IsTextInputActive()) {
                 Android_StartTextInput(_this); /* Only showTextInput */
             }
+#endif
         }
     } else {
         if (videodata->isPausing || SDL_SemTryWait(Android_PauseSem) == 0) {
