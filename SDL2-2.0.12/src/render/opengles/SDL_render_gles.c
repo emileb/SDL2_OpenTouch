@@ -732,8 +732,9 @@ SetDrawState(GLES_RenderData *data, const SDL_RenderCommand *cmd)
         data->glColor4f(fr, fg, fb, fa);
         data->drawstate.color = color;
     }
-
+#ifndef OPENTOUCH_SDL_EXTRA
     if (data->drawstate.viewport_dirty) {
+#endif
         const SDL_Rect *viewport = &data->drawstate.viewport;
         const SDL_bool istarget = (data->drawstate.target != NULL);
         data->glMatrixMode(GL_PROJECTION);
@@ -749,8 +750,9 @@ SetDrawState(GLES_RenderData *data, const SDL_RenderCommand *cmd)
         }
         data->glMatrixMode(GL_MODELVIEW);
         data->drawstate.viewport_dirty = SDL_FALSE;
+#ifndef OPENTOUCH_SDL_EXTRA
     }
-
+#endif
     if (data->drawstate.cliprect_enabled_dirty) {
         if (data->drawstate.cliprect_enabled) {
             data->glEnable(GL_SCISSOR_TEST);
