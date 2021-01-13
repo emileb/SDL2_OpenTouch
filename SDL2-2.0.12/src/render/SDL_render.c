@@ -948,10 +948,24 @@ SDL_GetRendererInfo(SDL_Renderer * renderer, SDL_RendererInfo * info)
     return 0;
 }
 
+#ifdef OPENTOUCH_SDL_EXTRA
+extern int Android_SurfaceWidth;
+extern int Android_SurfaceHeight;
+#endif
+
 int
 SDL_GetRendererOutputSize(SDL_Renderer * renderer, int *w, int *h)
 {
     CHECK_RENDERER_MAGIC(renderer, -1);
+
+#ifdef OPENTOUCH_SDL_EXTRA
+	*w = Android_SurfaceWidth;
+	*h = Android_SurfaceHeight;
+	return 0;
+#endif
+
+	if (renderer->GetOutputSize)
+        return renderer->GetOutputSize(renderer, w, h);
 
     if (renderer->target) {
         return SDL_QueryTexture(renderer->target, NULL, NULL, w, h);

@@ -739,9 +739,14 @@ SetDrawState(GLES_RenderData *data, const SDL_RenderCommand *cmd)
         const SDL_bool istarget = (data->drawstate.target != NULL);
         data->glMatrixMode(GL_PROJECTION);
         data->glLoadIdentity();
+#ifdef OPENTOUCH_SDL_EXTRA  // Not sure what the original code is trying to do, but this makes it full screen
+        data->glViewport(viewport->x, viewport->y,
+                         viewport->w, viewport->h);
+#else
         data->glViewport(viewport->x,
                          istarget ? viewport->y : (data->drawstate.drawableh - viewport->y - viewport->h),
                          viewport->w, viewport->h);
+#endif
         if (viewport->w && viewport->h) {
             data->glOrthof((GLfloat) 0, (GLfloat) viewport->w,
                            (GLfloat) (istarget ? 0 : viewport->h),
