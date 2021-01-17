@@ -959,8 +959,11 @@ SDL_GetRendererOutputSize(SDL_Renderer * renderer, int *w, int *h)
     CHECK_RENDERER_MAGIC(renderer, -1);
 
 #ifdef OPENTOUCH_SDL_EXTRA
-	*w = Android_SurfaceWidth;
-	*h = Android_SurfaceHeight;
+	if(w)
+		*w = Android_SurfaceWidth;
+
+	if(h)
+		*h = Android_SurfaceHeight;
 	return 0;
 #endif
 
