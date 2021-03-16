@@ -26,6 +26,6 @@ LOCAL_SRC_FILES += \
     codebook.c \
     sharedbook.c.arm \
 
-LOCAL_SHARED_LIBRARIES := ogg
+LOCAL_STATIC_LIBRARIES := ogg_SDL
 
 include $(BUILD_STATIC_LIBRARY)
