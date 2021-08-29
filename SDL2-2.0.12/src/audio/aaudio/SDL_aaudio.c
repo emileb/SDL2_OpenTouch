@@ -109,6 +109,8 @@ aaudio_OpenDevice(_THIS, void *handle, const char *devname, int iscapture)
         ctx.AAudioStreamBuilder_setFormat(ctx.builder, format);
     }
 
+	ctx.AAudioStreamBuilder_setPerformanceMode(ctx.builder, AAUDIO_PERFORMANCE_MODE_LOW_LATENCY);
+
     LOGI("AAudio Try to open %u hz %u bit chan %u %s samples %u",
           this->spec.freq, SDL_AUDIO_BITSIZE(this->spec.format),
           this->spec.channels, (this->spec.format & 0x1000) ? "BE" : "LE", this->spec.samples);
