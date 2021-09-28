@@ -53,7 +53,7 @@ LOCAL_SRC_FILES := \
 	$(wildcard $(LOCAL_PATH)/src/test/*.c) \
 	$(wildcard $(LOCAL_PATH)/src/compat/*.c))
 
-LOCAL_SHARED_LIBRARIES := hidapi
+LOCAL_SHARED_LIBRARIES := hidapi saffal
 
 LOCAL_CFLAGS += -DGL_GLEXT_PROTOTYPES -DOPENTOUCH_SDL_EXTRA
 LOCAL_CFLAGS += \

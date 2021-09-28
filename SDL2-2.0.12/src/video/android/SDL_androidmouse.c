@@ -79,7 +79,7 @@ static void MoveCursor (struct SDL_Cursor * cursor)
  	SDL_Mouse *mouse = SDL_GetMouse();
  	SDL_Window *focusWindow = SDL_GetKeyboardFocus();
 
-	LOGI("MoveCursor %d %d", mouse->x, mouse->y);
+	//LOGI("MoveCursor %d %d", mouse->x, mouse->y);
 	if(mouseMoveCallback && focusWindow)
 	{
 		//mouseMoveCallback((float)mouse->x / (float)focusWindow->w, (float)mouse->y / (float)focusWindow->h);
