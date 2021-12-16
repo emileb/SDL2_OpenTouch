@@ -20,6 +20,7 @@ LOCAL_SRC_FILES := \
 	$(wildcard $(LOCAL_PATH)/src/audio/*.c) \
 	$(wildcard $(LOCAL_PATH)/src/audio/android/*.c) \
 	$(wildcard $(LOCAL_PATH)/src/audio/dummy/*.c) \
+	$(wildcard $(LOCAL_PATH)/src/audio/aaudio/*.c) \
 	$(wildcard $(LOCAL_PATH)/src/audio/openslES/*.c) \
 	$(LOCAL_PATH)/src/atomic/SDL_atomic.c.arm \
 	$(LOCAL_PATH)/src/atomic/SDL_spinlock.c.arm \
@@ -52,7 +53,7 @@ LOCAL_SRC_FILES := \
 	$(wildcard $(LOCAL_PATH)/src/test/*.c) \
 	$(wildcard $(LOCAL_PATH)/src/compat/*.c))
 
-LOCAL_SHARED_LIBRARIES := hidapi
+LOCAL_SHARED_LIBRARIES := hidapi saffal
 
 LOCAL_CFLAGS += -DGL_GLEXT_PROTOTYPES -DOPENTOUCH_SDL_EXTRA
 LOCAL_CFLAGS += \
