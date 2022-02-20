@@ -2617,7 +2617,9 @@ SDL_OnWindowHidden(SDL_Window * window)
 void
 SDL_OnWindowResized(SDL_Window * window)
 {
+#ifndef OPENTOUCH_SDL_EXTRA // Dont do this because it invalidates the windows surface on resume
     window->surface_valid = SDL_FALSE;
+#endif
     SDL_SendWindowEvent(window, SDL_WINDOWEVENT_SIZE_CHANGED, window->w, window->h);
 }
 
