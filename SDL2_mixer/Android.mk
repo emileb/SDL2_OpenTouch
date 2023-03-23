@@ -98,7 +98,7 @@ ifeq ($(SUPPORT_MID_TIMIDITY),true)
     LOCAL_STATIC_LIBRARIES += timidity_SDL
 endif
 
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/fluidsynth-lite/include
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../fluidsynth-lite/include
 LOCAL_CFLAGS += -DMUSIC_MID_FLUIDSYNTH
 LOCAL_STATIC_LIBRARIES += fluidsynth-SDL-static
 
