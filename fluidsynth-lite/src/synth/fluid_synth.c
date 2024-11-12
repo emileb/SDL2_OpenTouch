@@ -178,9 +178,9 @@ void fluid_synth_settings(fluid_settings_t* settings)
                                 FLUID_HINT_TOGGLED, NULL, NULL);
     fluid_settings_register_int(settings, "synth.dump", 0, 0, 1,
                                 FLUID_HINT_TOGGLED, NULL, NULL);
-    fluid_settings_register_int(settings, "synth.reverb.active", 1, 0, 1,
+    fluid_settings_register_int(settings, "synth.reverb.active", 0, 0, 1,
                                 FLUID_HINT_TOGGLED, NULL, NULL);
-    fluid_settings_register_int(settings, "synth.chorus.active", 1, 0, 1,
+    fluid_settings_register_int(settings, "synth.chorus.active", 0, 0, 1,
                                 FLUID_HINT_TOGGLED, NULL, NULL);
     fluid_settings_register_int(settings, "synth.ladspa.active", 0, 0, 1,
                                 FLUID_HINT_TOGGLED, NULL, NULL);
