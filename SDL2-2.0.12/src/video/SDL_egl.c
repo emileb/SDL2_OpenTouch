@@ -1070,6 +1070,21 @@ SDL_EGL_DeleteContext(_THIS, SDL_GLContext context)
         
 }
 
+static int m_newEGLCreated = false;
+
+int SDL_NewEGLSurfaceCreated()
+{
+    if( m_newEGLCreated )
+    {
+        m_newEGLCreated = 0;
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 EGLSurface *
 SDL_EGL_CreateSurface(_THIS, NativeWindowType nw) 
 {
@@ -1078,6 +1093,8 @@ SDL_EGL_CreateSurface(_THIS, NativeWindowType nw)
     int attr = 0;
 
     EGLSurface * surface;
+
+    m_newEGLCreated = true;
 
     if (SDL_EGL_ChooseConfig(_this) != 0) {
         return EGL_NO_SURFACE;

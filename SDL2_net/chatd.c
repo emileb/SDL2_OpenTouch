@@ -190,7 +190,7 @@ static void cleanup(int exitcode)
     exit(exitcode);
 }
 
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
     IPaddress serverIP;
     int i;
