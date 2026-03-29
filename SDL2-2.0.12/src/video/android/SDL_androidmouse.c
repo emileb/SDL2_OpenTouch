@@ -44,7 +44,7 @@
 
 #ifdef OPENTOUCH_SDL_EXTRA
 
-#include "SDL_beloko_extra.h"
+#include "../../SDL_beloko_extra.h"
 
 #include <android/log.h>
 #define LOG_TAG "SDL_android"

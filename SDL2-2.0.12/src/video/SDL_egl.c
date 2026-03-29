@@ -37,7 +37,7 @@
 #include "SDL_hints.h"
 
 #ifdef OPENTOUCH_SDL_EXTRA
-#include "SDL_beloko_extra.h"
+#include "../../../SDL_beloko_extra.h"
 #endif
 
 #ifdef EGL_KHR_create_context
