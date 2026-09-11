@@ -2,7 +2,7 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := libFLAC
+LOCAL_MODULE := FLAC_mixer
 
 FLAC_OGG_LIBRARY_PATH := ../libogg-1.3.2
 
@@ -11,6 +11,8 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/include \
                     $(LOCAL_PATH)/$(FLAC_OGG_LIBRARY_PATH)/include \
                     $(LOCAL_PATH)/$(FLAC_OGG_LIBRARY_PATH)/android
 LOCAL_CFLAGS := -include $(LOCAL_PATH)/android/config.h
+# Hidden so SDL2_mixer does not export FLAC and gc-sections can drop unused code
+LOCAL_CFLAGS += -fvisibility=hidden -fdata-sections -ffunction-sections
 
 LOCAL_SRC_FILES := \
     src/libFLAC/bitmath.c \
